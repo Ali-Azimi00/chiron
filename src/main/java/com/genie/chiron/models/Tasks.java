@@ -25,26 +25,21 @@ public class Tasks {
     @Column(name="exPoints")
     private int exPoints;
 
-    @ManyToOne
-    private Stats stats;
-
     public Tasks() {
     }
 
-    public Tasks(int taskId, String taskName, Stats stats, int exPoints) {
+    public Tasks(int taskId, String taskName, int exPoints) {
         this.taskId = taskId;
         this.taskName = taskName;
-        this.stats = stats;
         this.exPoints = exPoints;
     }
 
-    public Tasks(int taskId, String taskName, String measureOfTask, int minReq, int exPoints, Stats stats) {
+    public Tasks(int taskId, String taskName, String measureOfTask, int minReq, int exPoints) {
         this.taskId = taskId;
         this.taskName = taskName;
         this.measureOfTask = measureOfTask;
         this.minReq = minReq;
         this.exPoints = exPoints;
-        this.stats = stats;
     }
 
     public int getTaskId() {
@@ -77,14 +72,6 @@ public class Tasks {
 
     public void setMinReq(int minReq) {
         this.minReq = minReq;
-    }
-
-    public Stats getStats() {
-        return stats;
-    }
-
-    public void setStats(Stats stats) {
-        this.stats = stats;
     }
 
     public int getExPoints() {
