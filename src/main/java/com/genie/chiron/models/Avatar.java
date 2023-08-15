@@ -27,18 +27,18 @@ public class Avatar {
     private List<Experience> experience;
 
     @OneToOne
-    private Stats stats;
+    private StatLevels statLevels;
 
     public Avatar() {
     }
 
-    public Avatar(int characterId, String userName, int level, int exp, int hp, Stats stats) {
+    public Avatar(int characterId, String userName, int level, int exp, int hp, StatLevels statLevels) {
         this.avatarId = characterId;
         this.userName = userName;
         this.level = level;
         this.exp = exp;
         this.hp = hp;
-        this.stats = stats;
+        this.statLevels = statLevels;
     }
 
     public int getAvatarId() {
@@ -89,11 +89,11 @@ public class Avatar {
         this.experience = experience;
     }
 
-    public Stats getStats() {
-        return stats;
+    public StatLevels getStats() {
+        return statLevels;
     }
 
-    public void setStats(Stats stats) {
-        this.stats = stats;
+    public void setStats(StatLevels statLevels) {
+        this.statLevels = statLevels;
     }
 }

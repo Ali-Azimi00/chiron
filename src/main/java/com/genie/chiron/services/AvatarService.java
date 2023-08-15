@@ -3,8 +3,11 @@ package com.genie.chiron.services;
 import com.genie.chiron.daos.AvatarDAO;
 import com.genie.chiron.daos.StatsDAO;
 import com.genie.chiron.models.Avatar;
-import com.genie.chiron.models.Stats;
+import com.genie.chiron.models.StatLevels;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AvatarService {
@@ -18,7 +21,7 @@ public class AvatarService {
 
     public Avatar createAvatar(String username){
         Avatar a = new Avatar();
-        Stats s = new Stats(1,1,1,1,1,1,1);
+        StatLevels s = new StatLevels(1,1,1,1,1,1,1,1,1,1,1,1,1);
 
         a.setUserName(username);
         a.setLevel(1);
@@ -29,6 +32,15 @@ public class AvatarService {
 
         return avatarDAO.save(a);
     };
+
+    public List<Avatar> getAllAvatars() {
+        return avatarDAO.findAll();
+    }
+
+    public Optional<Avatar> getAvatarById(int avatarId) {
+        return avatarDAO.findById(avatarId);
+    }
+
 
 //    List<Avatar> getAllAvatars() {
 //
