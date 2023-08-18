@@ -1,6 +1,7 @@
 package com.genie.chiron.controllers;
 
 import com.genie.chiron.models.Avatar;
+import com.genie.chiron.models.StatLevels;
 import com.genie.chiron.services.AvatarService;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +27,11 @@ public class AvatarController {
     @GetMapping("{id}")
     public Optional<Avatar> getAvatarByIdHandler(@PathVariable("id") int avatarId){
         return avatarService.getAvatarById(avatarId);
+    }
+
+    @GetMapping("{id}/stats")
+    public StatLevels getAvatarStatsHandler(@PathVariable("id") int avatarId){
+        return avatarService.getAvatarStats(avatarId);
     }
 
     @PostMapping

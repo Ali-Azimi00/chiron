@@ -82,5 +82,15 @@ public class Tasks {
         this.exPoints = exPoints;
     }
 
-
+    @Override
+    public String toString() {
+        return "Tasks{" +
+                "taskId=" + taskId +
+                ", taskName='" + taskName + '\'' +
+                ", statName='" + statName + '\'' +
+                ", measureOfTask='" + measureOfTask + '\'' +
+                ", minReq=" + minReq +
+                ", exPoints=" + exPoints +
+                '}';
+    }
 }

@@ -16,21 +16,22 @@ public class Experience {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int experienceId;
 
-    @Column (name="completedTask")
-    private String completedTask;
-
-    @OneToMany
-    private List<Tasks> tasks;
+    @ManyToOne
+    private Tasks tasks;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
 
     public Experience() {
     }
+    public Experience(Tasks tasks, LocalDate date) {
+        this.tasks = tasks;
+        this.date = date;
+    }
 
-    public Experience(int experienceId, String completedTask, List<Tasks> tasks, LocalDate date) {
+
+    public Experience(int experienceId, Tasks tasks, LocalDate date) {
         this.experienceId = experienceId;
-        this.completedTask = completedTask;
         this.tasks = tasks;
         this.date = date;
     }
@@ -43,19 +44,11 @@ public class Experience {
         this.experienceId = experienceId;
     }
 
-    public String getCompletedTask() {
-        return completedTask;
-    }
-
-    public void setCompletedTask(String completedTask) {
-        this.completedTask = completedTask;
-    }
-
-    public List<Tasks> getTasks() {
+    public Tasks getTasks() {
         return tasks;
     }
 
-    public void setTasks(List<Tasks> tasks) {
+    public void setTasks(Tasks tasks) {
         this.tasks = tasks;
     }
 
@@ -65,5 +58,14 @@ public class Experience {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    @Override
+    public String toString() {
+        return "Experience{" +
+                "experienceId=" + experienceId +
+                ", tasks=" + tasks +
+                ", date=" + date +
+                '}';
     }
 }

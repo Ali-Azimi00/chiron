@@ -19,9 +19,18 @@ public class AvatarService {
         this.statsDAO = statsDAO;
     }
 
+    public List<Avatar> getAllAvatars() {
+        return avatarDAO.findAll();
+    }
+
+    public Optional<Avatar> getAvatarById(int avatarId) {
+        return avatarDAO.findById(avatarId);
+    }
+
     public Avatar createAvatar(String username){
         Avatar a = new Avatar();
-        StatLevels s = new StatLevels(1,1,1,1,1,1,1,1,1,1,1,1,1);
+        StatLevels s = new StatLevels(1,1,1,1,1,1,1,1,1,1,1,1);
+        System.out.println("stat levels: "+ s);
 
         a.setUserName(username);
         a.setLevel(1);
@@ -33,12 +42,8 @@ public class AvatarService {
         return avatarDAO.save(a);
     };
 
-    public List<Avatar> getAllAvatars() {
-        return avatarDAO.findAll();
-    }
-
-    public Optional<Avatar> getAvatarById(int avatarId) {
-        return avatarDAO.findById(avatarId);
+    public StatLevels getAvatarStats(int avatarId) {
+        return null;
     }
 
 

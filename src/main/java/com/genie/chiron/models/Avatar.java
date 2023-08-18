@@ -32,6 +32,14 @@ public class Avatar {
     public Avatar() {
     }
 
+    public Avatar(String userName, int level, int exp, int hp, StatLevels statLevels) {
+        this.userName = userName;
+        this.level = level;
+        this.exp = exp;
+        this.hp = hp;
+        this.statLevels = statLevels;
+    }
+
     public Avatar(int characterId, String userName, int level, int exp, int hp, StatLevels statLevels) {
         this.avatarId = characterId;
         this.userName = userName;
@@ -95,5 +103,18 @@ public class Avatar {
 
     public void setStats(StatLevels statLevels) {
         this.statLevels = statLevels;
+    }
+
+    @Override
+    public String toString() {
+        return "Avatar{" +
+                "avatarId=" + avatarId +
+                ", userName='" + userName + '\'' +
+                ", level=" + level +
+                ", exp=" + exp +
+                ", hp=" + hp +
+                ", experience=" + experience +
+                ", statLevels=" + statLevels +
+                '}';
     }
 }
