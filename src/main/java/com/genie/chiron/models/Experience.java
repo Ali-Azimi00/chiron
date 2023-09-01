@@ -16,6 +16,9 @@ public class Experience {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int experienceId;
 
+    @Column(name="completedQty")
+    private int completedQty;
+
     @ManyToOne
     private Tasks tasks;
 
@@ -36,12 +39,27 @@ public class Experience {
         this.date = date;
     }
 
+    public Experience(int experienceId, int completedQty, Tasks tasks, LocalDate date) {
+        this.experienceId = experienceId;
+        this.completedQty = completedQty;
+        this.tasks = tasks;
+        this.date = date;
+    }
+
     public int getExperienceId() {
         return experienceId;
     }
 
     public void setExperienceId(int experienceId) {
         this.experienceId = experienceId;
+    }
+
+    public int getCompletedQty() {
+        return completedQty;
+    }
+
+    public void setCompletedQty(int completedQty) {
+        this.completedQty = completedQty;
     }
 
     public Tasks getTasks() {

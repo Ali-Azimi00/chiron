@@ -9,6 +9,13 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface ExperienceDAO extends JpaRepository<Experience, Integer> {
+    @Query(
+            value ="SELECT * FROM avatar a " +
+                    "full JOIN avatar_experience ae ON a.avatar_id = ae.avatar_avatar_id " +
+                    "full JOIN experience e ON e.experience_id = ae.experience_experience_id where a.avatar_id = :avatarId",
+            nativeQuery = true
+    )
+    List<Experience> findAllExpereincesById(@Param("avatarId") int avatarId);
 
     @Query(
             value ="SELECT * FROM avatar a " +
@@ -18,19 +25,15 @@ public interface ExperienceDAO extends JpaRepository<Experience, Integer> {
     )
     List<Experience> findAllExpereincesByDate(@Param("date") LocalDate date, @Param("avatarId") int avatarId);
 
+
     @Query(
-            value ="SELECT * FROM avatar a " +
+            value=" SELECT * FROM avatar a " +
                     "full JOIN avatar_experience ae ON a.avatar_id = ae.avatar_avatar_id " +
-                    "full JOIN experience e ON e.experience_id = ae.experience_experience_id where a.avatar_id = :avatarId",
+                    "full JOIN experience e ON e.experience_id = ae.experience_experience_id where e.date=:dateNum AND a.avatar_id = :avatarId AND tasks_task_id = :taskId",
             nativeQuery = true
     )
-    List<Experience> findAllExpereincesById(@Param("avatarId") int avatarId);
+    Experience findSingleExperience(@Param("dateNum") LocalDate dateNum, @Param("avatarId") int avatarId, @Param("taskId")  int taskId);
 
 
 
-//    @Query(
-//            value ="SELECT * FROM transactions WHERE recepient_acct = :bankAcctId OR sender_acct = :bankAcctId",
-//            nativeQuery = true
-//    )
-//    List<Experience> findAllTransactionsByBankAcctId(@Param("bankAcctId") int bankAcctId);
 }
