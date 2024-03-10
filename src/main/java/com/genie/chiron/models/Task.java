@@ -20,9 +20,6 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int taskId;
 
-    @Column ( nullable = false )
-    private boolean isActive;
-
     private String taskName;
 
     private int taskMinCount;

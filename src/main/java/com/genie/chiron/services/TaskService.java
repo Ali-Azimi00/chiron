@@ -22,7 +22,6 @@ public class TaskService {
 
 
     public Task findTaskById(int id) {
-        log.info("isActive? : {}", findAllByActiveStatus(false));
         return taskDAO.findByTaskId(id);
     }
 
@@ -43,10 +42,10 @@ public class TaskService {
 
     public Task postTask(Task task){
         Task t = task;
-        task.setActive(true);
         taskDAO.save(t);
         return taskDAO.findByTaskId(task.getTaskId());
     }
+
 
 
 //    public Task updateTaskById(int id, Task task) {
