@@ -22,6 +22,9 @@ public class Person {
     @OneToOne
     private Stats stats;
 
+    @ManyToMany
+    private List<Task> taskList;
+
     @OneToMany
     private List<Experience> experienceList;
 
