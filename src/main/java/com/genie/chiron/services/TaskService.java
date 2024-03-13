@@ -30,6 +30,7 @@ public class TaskService {
     }
 
     public List<Task> findAllByTaskCategory(String category){
+        log.info("TaskList category:{} | List: {}", taskDAO.findAllTasksByCategoryType(category));
         return taskDAO.findAllTasksByCategoryType(category);
     }
     public List<Task> findAllByActiveStatus(boolean active){

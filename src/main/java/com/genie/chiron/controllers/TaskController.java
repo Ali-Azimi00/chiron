@@ -5,6 +5,7 @@ import com.genie.chiron.services.TaskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -25,6 +26,11 @@ public class TaskController {
 //    public Task findsTaskByNameHandler(@PathVariable("name") String name){
 //        return taskService.findByTaskName(name);
 //    }
+
+    @GetMapping("category/{category}")
+    public List<Task> getAllTasks(@PathVariable("category") String category){
+        return taskService.findAllByTaskCategory(category);
+    }
 
 
     @PostMapping
