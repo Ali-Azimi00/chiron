@@ -6,6 +6,8 @@ import com.genie.chiron.services.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.LinkedList;
+
 
 @RestController
 @RequestMapping("exp")
@@ -13,6 +15,12 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class ExperienceController {
     private final ExpService expService;
+
+
+   @GetMapping("person/{id}")
+   public Experience getExpLatestHandler( @PathVariable("id") int id){
+     return expService.getExpLatest(id);
+   }
 
     @PostMapping("{id}")
     public void addExperienceHandler(@RequestBody Experience exp,

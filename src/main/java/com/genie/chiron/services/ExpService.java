@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -34,6 +35,18 @@ public class ExpService {
         personDAO.save(p);
     }
 
+    public List<Experience> getAllExperience(int personId){
+        Person p = personDAO.findByUserId(personId);
+        List<Experience> expList = p.getExperienceList();
+        return expList;
+    }
 
+    public Experience getExpLatest(int personId){
+        Person p = personDAO.findByUserId(personId);
+        List<Experience> expList = p.getExperienceList();
+        Experience exp = expList.get(expList.size()-1);
+
+        return exp;
+    }
 
 }
