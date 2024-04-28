@@ -7,12 +7,13 @@ import com.genie.chiron.models.Experience;
 import com.genie.chiron.models.Person;
 import com.genie.chiron.models.Task;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
+@Slf4j
 @Service
 @AllArgsConstructor
 public class ExpService {
@@ -22,17 +23,35 @@ public class ExpService {
     private final TaskDAO taskDAO;
 
     public void addExperience(Experience e, int personId){
+        List<Experience> todayExpList = getExpToday(personId);
+        Map<Integer,Integer> expMap = new HashMap<>();
+
+        todayExpList.forEach((exp)->{
+            expMap.put(
+                    exp.getTask().getTaskId(),
+                    exp.getExpId());
+        });
+
+
         Person p = personDAO.findByUserId(personId);
         Experience exp = e;
         Task t = taskDAO.getReferenceById(e.getTask().getTaskId());
-
         List<Experience> expList = p.getExperienceList();
-        exp.setDate(LocalDate.now());
-        expList.add(exp);
-        exp.setTask(t);
 
-        experienceDAO.save(exp);
-        personDAO.save(p);
+        if(expMap.containsKey(t.getTaskId())) {
+            Experience todayExp = experienceDAO.getReferenceById(expMap.get(t.getTaskId()));
+            todayExp.setExpCount(e.getExpCount());
+
+            experienceDAO.save(exp);
+        }
+        else{
+            exp.setDate(LocalDate.now());
+            exp.setTask(t);
+            expList.add(exp);
+
+            experienceDAO.save(exp);
+            personDAO.save(p);
+        }
     }
 
     public List<Experience> getAllExperience(int personId){
@@ -47,6 +66,23 @@ public class ExpService {
         Experience exp = expList.get(expList.size()-1);
 
         return exp;
+    }
+
+    public List<Experience> getExpToday(int personId){
+        Person p = personDAO.findByUserId(personId);
+        String localDate = LocalDate.now().toString();
+
+        List<Experience> expList = new ArrayList<>();
+
+        p.getExperienceList().forEach((exp)->{
+            String expDate = exp.getDate().toString();
+
+            if (expDate.equals(localDate)) {
+                expList.add(exp);
+            }
+        });
+
+        return expList;
     }
 
 }

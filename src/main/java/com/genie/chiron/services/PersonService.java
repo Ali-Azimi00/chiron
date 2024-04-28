@@ -56,17 +56,19 @@ public class PersonService {
         List<Task> tList = p.getTaskList();
         Task t = taskService.findTaskById(taskId);
 
-        if(!tList.contains(t)){
+        if(tList.size() >=12){
+            log.warn("Task - {} - was not added. Max of 12 tasks are allowed",
+                    t.getTaskName());
+        }
+        else if(!tList.contains(t)){
             p.setTaskList(tList);
             tList.add(t);
             personDAO.save(p);
             log.info("Successfully added Task:{}", t);
-
         }
         else{
-            log.info("Task - {} - is already assigned to {}. No change was made ",
+            log.warn("Task - {} - is already assigned to {}. No change was made ",
                     t.getTaskName(),p.getName());
-
         }
 
         return tList;
@@ -85,9 +87,7 @@ public class PersonService {
         else{
             log.info("Task - {} - was not assigned to {}. No change was made ",
                     t.getTaskName(),p.getName());
-
         }
-
         return tList;
     }
 

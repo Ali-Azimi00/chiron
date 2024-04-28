@@ -2,11 +2,10 @@ package com.genie.chiron.controllers;
 
 import com.genie.chiron.models.Experience;
 import com.genie.chiron.services.ExpService;
-import com.genie.chiron.services.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.LinkedList;
+import java.util.List;
 
 
 @RestController
@@ -24,8 +23,14 @@ public class ExperienceController {
 
     @PostMapping("{id}")
     public void addExperienceHandler(@RequestBody Experience exp,
-                                     @PathVariable("id") int id
+                                     @PathVariable("id") int personId
     ){
-        expService.addExperience(exp, id);
+        expService.addExperience(exp, personId);
     }
+
+    @GetMapping("person/{id}/Today")
+    public List<Experience> getExpByTodayHandler(@PathVariable("id") int persondId){
+       return expService.getExpToday(persondId);
+    }
+
 }
