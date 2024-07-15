@@ -35,8 +35,10 @@ public class ExpService {
 
         Person p = personDAO.findByUserId(personId);
         Experience exp = e;
+        log.info("addedExpTask: {}", exp.toString());
         Task t = taskDAO.getReferenceById(e.getTask().getTaskId());
         List<Experience> expList = p.getExperienceList();
+        log.info("ExpList: {}", expList.toString());
 
         if(expMap.containsKey(t.getTaskId())) {
             Experience todayExp = experienceDAO.getReferenceById(expMap.get(t.getTaskId()));

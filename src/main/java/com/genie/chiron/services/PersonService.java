@@ -27,7 +27,7 @@ public class PersonService {
 
     public Person createPerson(Person person) {
         Person p = person;
-        Stats s = new Stats(1,1,1,1);
+        Stats s = new Stats(1, 1, 1, 1);
         statsDAO.save(s);
 
         p.setLevel(1);
@@ -35,7 +35,7 @@ public class PersonService {
         return personDAO.save(p);
     }
 
-    public Person getPersonById(int id){
+    public Person getPersonById(int id) {
         return personDAO.findByUserId(id);
     }
 
@@ -48,49 +48,47 @@ public class PersonService {
 
     //Task CRUDS
     public List<Task> getAllPersonTasks(int id) {
-        Person p=personDAO.findByUserId(id);
+        Person p = personDAO.findByUserId(id);
         return p.getTaskList();
     }
-    public List<Task>  addTaskToPerson(int id, int taskId) {
+
+    public List<Task> addTaskToPerson(int id, int taskId) {
         Person p = personDAO.findByUserId(id);
         List<Task> tList = p.getTaskList();
         Task t = taskService.findTaskById(taskId);
 
-        if(tList.size() >=12){
+        if (tList.size() >= 12) {
             log.warn("Task - {} - was not added. Max of 12 tasks are allowed",
                     t.getTaskName());
-        }
-        else if(!tList.contains(t)){
+        } else if (!tList.contains(t)) {
             p.setTaskList(tList);
             tList.add(t);
             personDAO.save(p);
             log.info("Successfully added Task:{}", t);
-        }
-        else{
+        } else {
             log.warn("Task - {} - is already assigned to {}. No change was made ",
-                    t.getTaskName(),p.getName());
+                    t.getTaskName(), p.getName());
         }
 
         return tList;
     }
-     public List<Task>  removeTaskFromPerson(int id, int taskId) {
+
+    public List<Task> removeTaskFromPerson(int id, int taskId) {
         Person p = personDAO.findByUserId(id);
         List<Task> tList = p.getTaskList();
         Task t = taskService.findTaskById(taskId);
 
-        if(tList.contains(t)){
+        if (tList.contains(t)) {
             p.setTaskList(tList);
             tList.remove(t);
             personDAO.save(p);
             log.info("Successfully removed Task:{}", t);
-        }
-        else{
+        } else {
             log.info("Task - {} - was not assigned to {}. No change was made ",
-                    t.getTaskName(),p.getName());
+                    t.getTaskName(), p.getName());
         }
         return tList;
     }
-
 
 
 }
